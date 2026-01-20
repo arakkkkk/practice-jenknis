@@ -63,7 +63,7 @@ pipeline {
             if (number) {
               echo "Triggering multiply-param job with number=${number}"
               def downstream = build job: 'multiply-param',
-                parameters: [string(name: 'number', value: number)],
+                parameters: [string(name: 'INPUT_NUMBER', value: number)],
                 wait: true,
                 propagate: false
               echo "multiply-param result: ${downstream.result}"
