@@ -53,11 +53,15 @@ pipeline {
             cat random_numbers.csv
           ''')
 
-          // Trigger the downstream job with the extracted parameter.
-          String multiplyJob = 'multiply-param'
-          build job: multiplyJob, wait: true, parameters: [
-            string(name: 'INPUT_NUMBER', value: env.INPUT_NUMBER)
-          ]
+          // number列にて、行ごとにループしてmultiply-paramジョブを呼び出す
+          def csvContent = readFile('random_numbers.csv').trim().split('\n')
+          for (int i = 1; i < csvContent.length; i++) {
+            def number = csvContent[i].trim()
+            if (number) {
+              echo "Triggering multiply-param job with number=${number}"
+              build job: 'multiply-param', parameters: [string(name: 'number', value: number)], wait: true
+            }
+          }
         }
       }
     }
