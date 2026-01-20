@@ -16,14 +16,10 @@ pipeline {
           )
 
           // Use the first data row (2nd line) as the input number.
-          String n = sh(
+          env.INPUT_NUMBER = sh(
             script: 'awk "NR==2{print $1}" random_numbers.csv',
             returnStdout: true
           ).trim()
-          if (!n) {
-            error('random_numbers.csv に数値がありません')
-          }
-          env.INPUT_NUMBER = n
         }
       }
     }

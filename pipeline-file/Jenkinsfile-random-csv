@@ -7,7 +7,8 @@ pipeline {
         sh '''
           set -e
           printf "number\n" > random_numbers.csv
-          seq 1 100 | shuf | awk '{print $0}' >> random_numbers.csv
+          printf 10 >> random_numbers.csv
+          printf 13 >> random_numbers.csv
         '''
         archiveArtifacts artifacts: 'random_numbers.csv', onlyIfSuccessful: true
       }
