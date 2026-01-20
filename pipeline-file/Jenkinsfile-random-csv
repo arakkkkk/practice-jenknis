@@ -7,8 +7,7 @@ pipeline {
         sh '''
           set -e
           printf "number\n" > random_numbers.csv
-          printf 10 >> random_numbers.csv
-          printf 13 >> random_numbers.csv
+          printf "10\n14" >> random_numbers.csv
         '''
         archiveArtifacts artifacts: 'random_numbers.csv', onlyIfSuccessful: true
       }

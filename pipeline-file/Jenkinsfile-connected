@@ -18,7 +18,6 @@ pipeline {
           sh('''
             echo "Downloaded random_numbers.csv:"
             cat random_numbers.csv
-            echo "================================"
           ''')
 
           // Use the first data row (2nd line) as the input number.
