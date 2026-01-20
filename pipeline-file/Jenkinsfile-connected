@@ -8,6 +8,7 @@ pipeline {
           // Trigger the upstream job that generates the CSV artifact.
           String randomCsvJob = 'random-csv'
           def randomBuild = build job: randomCsvJob, wait: true
+
           // Pull the CSV from the specific build we just ran.
           copyArtifacts(
             projectName: randomCsvJob,
@@ -15,10 +16,9 @@ pipeline {
             filter: 'random_numbers.csv'
           )
 
-          sh('''
-            echo "Downloaded random_numbers.csv:"
-            cat random_numbers.csv
-          ''')
+          // Display the contents of the CSV for verification.
+          echo "Contents of random_numbers.csv:"
+          cat random_numbers.csv
 
           // Use the first data row (2nd line) as the input number.
           env.INPUT_NUMBER = sh(
